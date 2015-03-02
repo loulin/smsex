@@ -1,0 +1,33 @@
+{
+  "name": "smsex",
+  "version": "1.0.0",
+  "description": "SMS service extension for Chinese provider",
+  "author": "Lin Lou <lin.lou@hotmail.com>",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/loulin/smsex"
+  },
+  "bugs": {
+    "url": "http://github.com/loulin/smsex/issues"
+  },
+  "devDependencies": {
+    "babel": "~4.0.2",
+    "chai": "~2.0.0",
+    "del": "~1.1.1",
+    "gulp": "~3.8.11",
+    "gulp-babel": "~4.0.0",
+    "gulp-mocha": "~2.0.0",
+    "gulp-sourcemaps": "~1.3.0",
+    "mocha": "~2.1.0",
+    "mocha-jshint": "0.0.9"
+  },
+  "dependencies": {
+    "lodash": "^3.3.1",
+    "mustache": "~1.1.0"
+  }
+}
