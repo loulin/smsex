@@ -77,11 +77,11 @@ smsex.send({
   Provider类必须实现以下方法
 ```
 function send(mobile, content, params, cb) {}
+```
 * `mobile` - 目标手机号(String)
 * `content` - 发送内容(String)
 * `params` - 适用于当前供应商的参数(Object)
 * `cb` - 回调函数(Function)
-```
 
 举例(ES6)：
 ```
