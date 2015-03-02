@@ -1,6 +1,4 @@
 # smsex
-===
-
 SMS服务扩展，提供统一的基于模板的短信服务接口，便于在各种短信服务提供商之间自由切换。
 
 ## Installation
@@ -64,7 +62,7 @@ smsex.send({
 - `content` - 模板内容，第一次调用时会被设置为默认模板。模板使用`Mustache`引擎，语法请参考[Mustache文档](https://github.com/janl/mustache.js#templates)。
 
 ### `template(templates)`
-- `templates` - 批量模板对象，可同时指定多个模板名值对(name, content)，如{name1: 'content1', name2, 'content2'}。
+- `templates` - 批量模板对象，可同时指定多个模板名值对(name, content)，如`{name1: 'content1', name2, 'content2'}`。
 
 ### `send(options, [callback])`
 - `options` - 发送选项:
