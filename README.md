@@ -94,12 +94,12 @@ class AProvider {
 
   send(mobile, content, params, cb) {
     return request.post('https://github.com/loulin', {
-        account: this.account,
-        password: this.password,
-        mobile: mobile,
-        content: content,
-        // extend(params)
-      }).then((err, res) => {
+      account: this.account,
+      password: this.password,
+      mobile: mobile,
+      content: content,
+      // extend(params)
+    }).then((err, res) => {
       if (err) {
         return cb(error);
       }
