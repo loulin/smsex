@@ -1,6 +1,6 @@
 {
   "name": "smsex",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "SMS service extension for Chinese provider",
   "author": "Lin Lou <lin.lou@hotmail.com>",
   "license": "MIT",
@@ -13,7 +13,7 @@
     "url": "https://github.com/loulin/smsex"
   },
   "bugs": {
-    "url": "http://github.com/loulin/smsex/issues"
+    "url": "https://github.com/loulin/smsex/issues"
   },
   "devDependencies": {
     "babel": "~4.0.2",

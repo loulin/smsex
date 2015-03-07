@@ -9,7 +9,7 @@ gulp.task('clean', function (cb) {
 });
 
 gulp.task('build', function () {
-  return gulp.src(['lib/**/*.js', 'provider/**/*.js'])
+  return gulp.src(['lib/**/*.js'])
     .pipe(sourcemaps.init())
     .pipe(babel())
     .pipe(sourcemaps.write('.'))
