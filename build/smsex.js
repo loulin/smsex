@@ -14,8 +14,7 @@ var SMS = (function () {
   function SMS() {
     _classCallCheck(this, SMS);
 
-    this._templates = null;
-    this._defaultTemplates = null;
+    this._templates = {};
     this._providers = null;
     this._defaultProvider = null;
   }
@@ -44,21 +43,33 @@ var SMS = (function () {
       configurable: true
     },
     template: {
+
+      /**
+       * Set template global or specified provider.
+       *
+       * @method template
+       * @param {Object} templateObj The plain template object, name value pair
+       * or
+       * @param {String} name template name
+       * @param {String} content template content
+       */
       value: function template(name, content) {
+        if (arguments.length === 0) {
+          return this._templates;
+        }
+
+        var templates = undefined;
         if (_.isObject(name)) {
-          this._templates = name;
+          templates = name;
         } else {
           if (!content) {
-            throw new Error("SMS template must have name and content");
+            return this._templates[name];
           }
-
-          if (!this._templates) {
-            this._defaultTemplates = content;
-            this._templates = {};
-          }
-
-          this._templates[name] = content;
+          templates = {};
+          templates[name] = content;
         }
+
+        _.assign(this._templates, templates);
       },
       writable: true,
       configurable: true
@@ -66,6 +77,10 @@ var SMS = (function () {
     send: {
       value: function send(options) {
         var callback = arguments[1] === undefined ? function () {} : arguments[1];
+        if (!this._providers) {
+          throw new Error("No SMS provider");
+        }
+
         if (_.isString(options) && _.isString(callback)) {
           options = {
             to: options,
@@ -84,32 +99,41 @@ var SMS = (function () {
         }
 
         if (!options.to || !options.body) {
-          throw new Error("Send to or message body missing");
-        }
-
-        if (!this._providers) {
-          throw new Error("No provider");
-        }
-
-        var content = null;
-
-        if (_.isString(options.body)) {
-          content = options.body;
-        } else if (_.isObject(options.body)) {
-          if (!this._templates) {
-            throw new Error("No templates");
-          }
-
-          var template = options.template ? this._templates[options.template] : this._defaultTemplates;
-
-          content = Mustache.render(template, options.body);
-        } else {
-          throw new Error("Message body must be string or object");
+          throw new Error("send to or message body missing");
         }
 
         var provider = options.provider ? this._providers[options.provider] : this._defaultProvider;
 
-        provider.send(options.to, content, options.params, callback);
+        if (_.isString(options.body)) {
+          options.content = options.body;
+        } else if (_.isObject(options.body)) {
+          if (!options.template) {
+            throw new Error("template name missing");
+          }
+
+          var template = provider.templates ? provider.templates[options.template] : null;
+
+          if (!template) {
+            template = this._templates ? this._templates[options.template] : null;
+            if (!template) {
+              throw new Error("Provider \"" + provider.name + "\" does not implement or no default \"" + options.template + "\" template");
+            }
+          }
+
+          var isInteger = function (n) {
+            return !isNaN(parseInt(n)) && isFinite(n) && n % 1 === 0;
+          };
+
+          if (isInteger(template)) {
+            options.template = template;
+          } else {
+            options.content = Mustache.render(template, options.body);
+          }
+        } else {
+          throw new Error("Message body must be string or object");
+        }
+
+        return provider.send(options, callback);
       },
       writable: true,
       configurable: true
