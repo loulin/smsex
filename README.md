@@ -48,7 +48,7 @@ ap.templates = {
 };
 ap.templates = {
   register: 'Your verification code is：{{code}}, please do not tell others.',
-  order, 'Your order[No.{{number}}]{{status}}, download APP ({{url}}) to check the status anywhere anytime.'
+  order, 'Your order[No.{{number}}]{{status}}, download APP ({{url}}) to check the status anytime.'
 };
 
 smsex.use('a', ap);
@@ -83,8 +83,8 @@ smsex.send({
 - `options` - 发送选项:
   - `to` - 必选，目标手机号码。
   - `body` - 必选，发送内容，String或者Object，为Object时作为模板数据源。
+  - `template` - 必选，模板名称。
   - `provider` - 可选，供应商名称，不选时使用默认供应商。
-  - `template` - 可选，模板名称，不选时使用默认模板。
 
 ## Provider
 
