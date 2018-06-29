@@ -2,7 +2,7 @@
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 
-var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
+var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
@@ -19,7 +19,7 @@ var SMS = (function () {
     this._defaultProvider = null;
   }
 
-  _prototypeProperties(SMS, null, {
+  _createClass(SMS, {
     use: {
       value: function use(name, provider) {
         if (!provider) {
@@ -38,9 +38,7 @@ var SMS = (function () {
 
         this._providers[name] = provider;
         return this;
-      },
-      writable: true,
-      configurable: true
+      }
     },
     template: {
 
@@ -53,6 +51,7 @@ var SMS = (function () {
        * @param {String} name template name
        * @param {String} content template content
        */
+
       value: function template(name, content) {
         if (arguments.length === 0) {
           return this._templates;
@@ -70,13 +69,12 @@ var SMS = (function () {
         }
 
         _.assign(this._templates, templates);
-      },
-      writable: true,
-      configurable: true
+      }
     },
     send: {
       value: function send(options) {
         var callback = arguments[1] === undefined ? function () {} : arguments[1];
+
         if (!this._providers) {
           throw new Error("No SMS provider");
         }
@@ -134,9 +132,7 @@ var SMS = (function () {
         }
 
         return provider.send(options, callback);
-      },
-      writable: true,
-      configurable: true
+      }
     }
   });
 
